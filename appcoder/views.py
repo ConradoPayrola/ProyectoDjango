@@ -38,3 +38,5 @@ def entregables(request):
 #Hacer funcionar el css del template
 
 #Ya pude solucionar tema css , solucionar error de subida de proyecto a GitHub.
+
+#Prueba de edicion de archivo desde GitHub , para usar Git Pull
