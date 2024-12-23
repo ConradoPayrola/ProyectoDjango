@@ -36,3 +36,5 @@ def entregables(request):
     return render(request , "appcoder/entregables.html")
 
 #Hacer funcionar el css del template
+
+#Ya pude solucionar tema css , solucionar error de subida de proyecto a GitHub.
