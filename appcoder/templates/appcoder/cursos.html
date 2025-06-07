@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos</title>
-</head>
-<body>
-    <h1>Cursos Disponibles</h1>
-    {%for curso in cursos%}
-        <p>{{curso.nombre}}-{{curso.comision}}</p>
-    {%endfor%}
-</body>
-</html>
+{% extends "appcoder/padre.html" %}
+
+{% load static %}
+
+{% block contenidoCursos %}
+    <h1>Este es el contenido de la pagina de Cursos</h1>
+{% endblock %}

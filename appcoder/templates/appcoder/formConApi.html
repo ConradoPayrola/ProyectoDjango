@@ -1,0 +1,18 @@
+{% extends "appcoder/padre.html" %}
+
+{% load static %}
+
+
+{% block title %}Formulario con API{% endblock title %}
+
+{% block formConApi %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{miFormulario.as_table}}
+        </table>
+        <input type="submit" value="Enviar">
+    </form>            
+{% endblock formConApi %}
+    
+#Ya casi termino la practica de la clase 21 , falta hacer lo de la busqueda con el formulario    
