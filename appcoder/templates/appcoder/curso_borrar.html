@@ -1,0 +1,15 @@
+{% extends "appcoder/padre.html" %}
+
+{% load static %}
+
+{% block contenidoMain %}
+
+<h1>Borrar Profesor</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    Estas seguro que deseas borrar el curso {{curso.nombre}} - camada {{curso.comision}} ?
+    <input style="margin-left: 8px;" type="submit" value="Eliminar">
+</form>
+
+{% endblock %}

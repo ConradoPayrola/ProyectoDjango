@@ -1,0 +1,27 @@
+{% extends "appcoder/padre.html" %}
+
+{% load static %}
+
+{% block contenidoMain %}  
+
+<div class="container mt-5 , mb-4">
+    <h1 class="mb-4">Formulario - Agregar Profesor</h1>
+
+    {% if miFormulario.errors %}
+        <div class="alert alert-danger">
+            Los datos están mal, revisar.
+        </div>
+    {% endif %}
+
+    <form method="POST" class="border p-4 rounded shadow-sm bg-light">
+        {% csrf_token %}
+
+        <table class="table table-borderless">
+            {{ miFormulario.as_table }}
+        </table>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+{% endblock %}

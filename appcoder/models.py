@@ -6,7 +6,7 @@ class Curso(models.Model):
     comision = models.IntegerField()
     
     def __str__(self):
-        return self.nombre
+        return f"Curso:{self.nombre} - Comision:{self.comision}"
     
 class Estudiante(models.Model):
     nombre = models.CharField(max_length=30)

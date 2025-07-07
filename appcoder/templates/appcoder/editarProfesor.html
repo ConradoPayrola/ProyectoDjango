@@ -1,0 +1,28 @@
+{% extends "appcoder/padre.html" %}  
+
+{% block contenidoMain %}
+
+<h2>Editar profesor: {{ profesor_nombre }}</h2>
+
+    <form method="POST">
+    {% csrf_token %}
+    
+    <div>
+        {{ miFormulario.nombre.label_tag }}<br>
+        {{ miFormulario.nombre }}
+    </div>
+
+    <div>
+        {{ miFormulario.apellido.label_tag }}<br>
+        {{ miFormulario.apellido }}
+    </div>
+
+    <div>
+        {{ miFormulario.email.label_tag }}<br>
+        {{ miFormulario.email }}
+    </div>
+
+    <button type="submit">Guardar cambios</button>
+    <a href="{% url 'LeerProfesores' %}">Cancelar</a>  
+</form>
+{% endblock %}

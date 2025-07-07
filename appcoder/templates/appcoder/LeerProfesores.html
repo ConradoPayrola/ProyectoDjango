@@ -1,0 +1,23 @@
+{% extends "appcoder/padre.html" %}
+
+{% load static %}
+
+{% block title %}Leer Profesores{% endblock title %}
+
+{% block contenidoMain %}
+
+    {% for p in profesores %}
+
+            <li style="color: goldenrod;">{{p.nombre}}</li>
+            <li style="color: goldenrod;">{{p.apellido}}</li>
+            <li style="color: goldenrod;margin-bottom: 15px;">{{p.email}}</li>
+            <button>
+                <a href="{% url 'EliminarProfesor' p.nombre %}">Eliminar</a>
+                <a href="{% url 'EditarProfesor' p.nombre %}">Editar</a>
+            </button>    
+            
+    {% endfor %}
+
+    <a style="margin-top: 5px;margin-left: 30px;" href="{% url 'ProfesorFormulario' %}">Agregar otro Profesor</a>
+
+{% endblock  %}

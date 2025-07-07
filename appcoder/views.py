@@ -2,8 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Curso
-from appcoder.forms import CursoFormulario
+from .models import Curso,Profesor
+from appcoder.forms import *
+#Realizo la importacoón para las vistas basadas en clases
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView , UpdateView , DeleteView
+from django.urls import reverse_lazy
 
 def crear_curso(request):
     nombre=input("Ingrese un nombre de curso:")
@@ -83,3 +88,125 @@ def buscar(request):
 #Terminé con toda la práctica de la clase 21 , pude hacer funcionar la vista y el formulario de busqueda en la base de datos , ahora la práctica
 #de la clase 22.
 
+#Comienzo con la práctica de la clase 22.
+
+#Arrancamos con el CRUD , comenzamos con READ.
+
+def leerProfesores(request):
+    
+    profesores = Profesor.objects.all() #Traemos todos los profesores
+    
+    contexto = {"profesores":profesores}
+    
+    return render(request,"appcoder/leerProfesores.html",contexto) 
+
+def profesorFormulario(request):
+    
+    if request.method == 'POST':
+        
+        miFormulario = ProfesorFormulario(request.POST) #aqui me llega toda la información del html
+        
+        print(miFormulario)
+        
+        if miFormulario.is_valid: #si pasó la validación de Django
+            
+            informacion = miFormulario.cleaned_data
+            
+            profesor = Profesor(nombre=informacion['nombre'],apellido=informacion['apellido'],email=informacion['email'])
+            
+            profesor.save()
+            
+            return render(request,"appcoder/inicio.html") #Vuelvo al inicio o a donde quiera
+        
+    else:
+        
+        miFormulario = ProfesorFormulario() #Formulario vacio para construir el html
+        
+    return render(request,"appcoder/profesorFormulario.html",{"miFormulario":miFormulario})      
+
+def eliminarProfesor(request , profesor_nombre):
+    
+    #Recibe el nombre del profesor que vamos a eliminar
+    profesor = Profesor.objects.get(nombre=profesor_nombre)
+    profesor.delete()
+    
+    #vuelvo al menu
+    profesores = Profesor.objects.all() #traigo a todos los profesores para el contexto.
+    
+    contexto = {"profesores":profesores}
+    
+    return render(request , "appcoder/leerProfesores.html" , contexto)
+
+def editarProfesor(request , profesor_nombre):
+    
+    #Recibe el nombre del profesor que vamos a modificar
+    profesor = Profesor.objects.get(nombre=profesor_nombre)
+    
+    #Si es metodo POST hago lo mismo que el agregar
+    if request.method == 'POST':
+        
+        miFormulario = ProfesorFormulario(request.POST) #Aqui me llega toda la informacion del html
+        
+        print(miFormulario)
+        
+        if miFormulario.is_valid: #Si pasa la validacion de Django
+        
+            informacion = miFormulario.cleaned_data
+            
+            profesor.nombre = informacion['nombre']
+            profesor.apellido = informacion['apellido']
+            profesor.email = informacion['email']
+            
+            profesor.save()
+            
+            return render(request , "appcoder/inicio.html") #Vuelvo al inicio o otra pagina
+        # En caso que no sea post
+    else:
+        miFormulario = ProfesorFormulario(initial={'nombre':profesor.nombre, 'apellido':profesor.apellido, 'email':profesor.email})
+            
+        #Voy al html que me permite editar
+    return render(request , "appcoder/editarProfesor.html" , {"miFormulario":miFormulario , "profesor_nombre":profesor_nombre})    
+        
+#Lo último que hice de la práctica de la clase 22 , fue agregar la vista editarProfesor,
+#lo siguiente es trabajar con las vistas basadas en clases.
+
+
+#****************************VISTAS BASADAS EN CLASES************************************
+
+#CLASE LISTVIEW : Para visualizar una lista de objetos.
+class CursoListView(ListView):
+    model = Curso
+    context_object_name = "cursos"
+    template_name = "appcoder/curso_lista.html"
+    
+
+#CLASE DETAILVIEW : Para visualizar un solo objeto.     
+class CursoDetailView(DetailView):
+    model = Curso
+    template_name = "appcoder/curso_detalle.html"
+
+
+#CLASE CREATEVIEW : Para crear objetos en la DB.
+class CursoCreateView(CreateView):
+    model = Curso
+    template_name = "appcoder/curso_crear.html"
+    success_url = reverse_lazy('ListaCursos')
+    fields = ['nombre', 'comision']
+    
+    
+#CLASE UPDATEVIEW : Para editar objetos de la DB.
+class CursoUpdateView(UpdateView):
+    model = Curso
+    template_name = "appcoder/curso_editar.html"
+    success_url = reverse_lazy('ListaCursos')
+    fields = ['nombre' , 'comision']
+    
+    
+#CLASE DELETEVIEW : Para eliminar un objeto de la DB.
+class CursoDeleteView(DeleteView):
+    model = Curso
+    template_name = "appcoder/curso_borrar.html"
+    success_url = reverse_lazy('ListaCursos')
+    
+    
+    

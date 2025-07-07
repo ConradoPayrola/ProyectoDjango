@@ -22,7 +22,7 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
-                <a class="navbar-brand" href="{% url 'cursos' %}">Cursos</a>
+                <a class="navbar-brand" href="{% url 'ListaCursos' %}">Cursos</a>
                 <a class="navbar-brand" href="{% url 'estudiantes' %}">Estudiantes</a>
                 <a class="navbar-brand" href="{% url 'profesores' %}">Profesores</a>
                 <a class="navbar-brand" href="{% url 'entregables' %}">Entregables</a>
@@ -78,38 +78,12 @@
             </div>
         </header>
         <!-- Icons Grid-->
-        
-            {% block resultadoBusqueda%}
-
-            {% endblock %}
-
-            {% block formConApi%}
-
-            {% endblock %}
-
-            {% block busqueda%}
-
-            {% endblock busqueda %}
             
-            {% block contenidoEntregables %}
+            {% block title %}
                 
-            {% endblock contenidoEntregables %}
-                    
-
-            {% block contenidoProfesores %}
+            {% endblock %}
                 
-            {% endblock contenidoProfesores %}
-                    
-
-            {% block contenidoEstudiantes %}
-                
-            {% endblock contenidoEstudiantes %}
-                    
-            {% block contenidoCursos %}
-                
-            {% endblock contenidoCursos %}
-                
-            {% block contenidoQueCambia %}
+            {% block contenidoMain %}
 
             {% endblock %}
         
